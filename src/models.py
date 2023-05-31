@@ -16,9 +16,9 @@ class Usuario(Base):
     apellido = Column(String(250), nullable=False)
     email = Column(String(250), unique=True, nullable=False)
     password = Column(String(250), nullable=False)
-    favoritos_personas = relationship('Favoritos_personas', backref='usuario', lazy=True)
-    favoritos_planetas = relationship('Favoritos_planetas', backref='usuario', lazy=True)
-    favoritos_vehiculos = relationship('Favoritos_vehiculos', backref='usuario', lazy=True)
+    personas = relationship('Favoritos_personas', backref='usuario', lazy=True)
+    planetas = relationship('Favoritos_planetas', backref='usuario', lazy=True)
+    vehiculos = relationship('Favoritos_vehiculos', backref='usuario', lazy=True)
     
 
     
@@ -36,7 +36,7 @@ class Personas(Base):
     color_de_pelo = Column(String(20), nullable=False)
     Peso = Column(Integer, nullable=False)
     altura = Column(Integer, nullable=False)
-    favoritos_personas = relationship('Favoritos_personas', backref='personas', lazy=True)
+    personas = relationship('Favoritos_personas', backref='personas', lazy=True)
 
 
 class Planetas(Base):
@@ -53,7 +53,7 @@ class Planetas(Base):
     clima = Column(String(80), nullable=False)
     terreno = Column(String(100), nullable=False)
     superficie_liquida = Column(Integer, nullable=False)
-    favoritos_planetass = relationship('Favoritos_planetas', backref='planetas', lazy=True)
+    planetass = relationship('Favoritos_planetas', backref='planetas', lazy=True)
 
 
 class Vehiculos(Base):
@@ -72,7 +72,7 @@ class Vehiculos(Base):
     velocidad_maxima = Column(Integer, nullable=False)
     capacidad_carga = Column(Integer, nullable=False)
     provisiones = Column(String(100), nullable=False)
-    favoritos_vehiculos = relationship('Favoritos_vehiculos', backref='vehiculos', lazy=True)
+    vehiculos = relationship('Favoritos_vehiculos', backref='vehiculos', lazy=True)
     
 
 class Favoritos_personas(Base):
