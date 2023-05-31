@@ -16,6 +16,9 @@ class Usuario(Base):
     apellido = Column(String(250), nullable=False)
     email = Column(String(250), unique=True, nullable=False)
     password = Column(String(250), nullable=False)
+    favoritos_personas = relationship('Favoritos_personas', backref='usuario', lazy=True)
+    favoritos_planetas = relationship('Favoritos_planetas', backref='usuario', lazy=True)
+    favoritos_vehiculos = relationship('Favoritos_vehiculos', backref='usuario', lazy=True)
     
 
     
@@ -33,7 +36,7 @@ class Personas(Base):
     color_de_pelo = Column(String(20), nullable=False)
     Peso = Column(Integer, nullable=False)
     altura = Column(Integer, nullable=False)
-    favoritos_personas_id = Column(Integer, ForeignKey('favoritos_personas.id'))
+    favoritos_personas = relationship('Favoritos_personas', backref='personas', lazy=True)
 
 
 class Planetas(Base):
@@ -50,7 +53,7 @@ class Planetas(Base):
     clima = Column(String(80), nullable=False)
     terreno = Column(String(100), nullable=False)
     superficie_liquida = Column(Integer, nullable=False)
-    favoritos_planetas_id = Column(Integer, ForeignKey('favoritos_planetas.id'))
+    favoritos_planetass = relationship('Favoritos_planetas', backref='planetas', lazy=True)
 
 
 class Vehiculos(Base):
@@ -69,7 +72,7 @@ class Vehiculos(Base):
     velocidad_maxima = Column(Integer, nullable=False)
     capacidad_carga = Column(Integer, nullable=False)
     provisiones = Column(String(100), nullable=False)
-    favoritos_vehiculos_id = Column(Integer, ForeignKey('favoritos_vehiculos.id'))
+    favoritos_vehiculos = relationship('Favoritos_vehiculos', backref='vehiculos', lazy=True)
     
 
 class Favoritos_personas(Base):
@@ -77,17 +80,15 @@ class Favoritos_personas(Base):
     # Here we define columns for the table person
     # Notice that each column is also a normal Python instance attribute.
     id = Column(Integer, primary_key=True)
-    usuario_id = Column(Integer, nullable=False)
-    personas_id = Column(Integer, nullable=True)
     usuario_id = Column(Integer, ForeignKey('usuario.id'))
+    personas_id = Column(Integer, ForeignKey('personas.id'))
 
 class Favoritos_planetas(Base):
     __tablename__ = 'favoritos_planetas' 
     # Here we define columns for the table person
     # Notice that each column is also a normal Python instance attribute.
     id = Column(Integer, primary_key=True)
-    usuario_id = Column(Integer, nullable=False)
-    planetas_id = Column(Integer, nullable=True)
+    planetas_id = Column(Integer, ForeignKey('planetas.id'))
     usuario_id = Column(Integer, ForeignKey('usuario.id'))
 
 class Favoritos_vehiculos(Base):
@@ -95,9 +96,8 @@ class Favoritos_vehiculos(Base):
     # Here we define columns for the table person
     # Notice that each column is also a normal Python instance attribute.
     id = Column(Integer, primary_key=True)
-    usuario_id = Column(Integer, nullable=False)
-    vehiculos_id = Column(Integer, nullable=True)
-    # vehiculos = relationship('Vehiculos', backref='favoritos_vehiculos', lazy=True)
+    vehiculos_id = Column(Integer, ForeignKey('vehiculos.id'))
+    # 
     usuario_id = Column(Integer, ForeignKey('usuario.id'))
 
 
